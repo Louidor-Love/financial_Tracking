@@ -1,0 +1,7 @@
+# Entornos virtuales
+venv
+venv/
+financial_database.env
+financial_database.env/
+db.sqlite3
+mysql.cnf
