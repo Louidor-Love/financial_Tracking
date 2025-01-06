@@ -27,11 +27,11 @@ class Product(TimeStampedModel):
     price  = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField(default=0)
 
-    #def __str__(self):
-    #    if self.name:
-    #        return f" name of the product  : {self.name} //   type : {self.type}"
-    #    else:
-    #        return f"name not found but type is: - ${self.type}"
+    def __str__(self):
+        if self.name:
+            return f" name of the product  : {self.name} //   type : {self.type}"
+        else:
+            return f"name not found but type is: - ${self.type}"
    
 
 class Expenses(models.Model):
@@ -40,8 +40,9 @@ class Expenses(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price_total = models.DecimalField(max_digits=5, decimal_places=2)
 
-    # def __str__(self):
-    #     return f"  name of the product  : {self.product.name} //  price : {self.price_total}"
+    def __str__(self):
+        return f"product  : {self.product.name} //  price : {self.price_total}"
+    
     def get_product_name(self):
         return  self.product.name 
 
