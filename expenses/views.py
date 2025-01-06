@@ -1,7 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic.list import ListView
+from django.views.generic import View
+from .models import Product
 
 # Create your views here.
-def salud(request):
-    return HttpResponse(f"<p> El número es {1234} </p")
+
+class ProductList(View):
+    def get(self, request, *args, **kwargs):
+        products = Product.objects.all()
+        context = {'products' : products}
+        return render(request, 'expenses.html',context )
+
+
+
+
+
+
+
