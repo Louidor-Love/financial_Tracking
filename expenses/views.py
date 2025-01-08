@@ -2,8 +2,7 @@ from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from django.views.generic import View
 from .models import Product
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+
 
 
 class ProductList(View):
@@ -12,8 +11,12 @@ class ProductList(View):
         context = {'products' : products}
         return render(request, 'expenses.html',context)
     
-@method_decorator(csrf_exempt, name='dispatch')    
+    
+     
 class ProductCreateView(View):
+    def get (self, request, *args, **kwargs):
+        return render(request,'expensesform.html')
+    
     def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         image= request.POST.get('image')
@@ -26,7 +29,12 @@ class ProductCreateView(View):
         return redirect('productslist') 
         
 
-           
+class ProductDetailView(View):
+    def get (self,request,pk, *args, **kwargs):
+        product = Product.objects.get(pk=pk)
+        context = {'product':product}
+        return render(request,'expensesdetail.html',context)
+
 
 
 

@@ -7,7 +7,9 @@
     <h1>Product List</h1>
     <ul>
         {% for product in products %}
-            <li>{{ product.image }}-{{ product.name }} - {{ product.price }}</li>
+            <li>
+                <a href="{% url 'productsdetail'  product.id%}">{{ product.image }}-{{ product.name }} - {{ product.price }}</a>
+            </li>
         {% empty %}
             <li>No products available.</li>
         {% endfor %}
