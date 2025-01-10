@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('financial_admin/', admin.site.urls),
     path('', include('expenses.urls')),
+    path('', include('users.urls')),
 ]

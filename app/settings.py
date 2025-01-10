@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
     'dashboard',
     'expenses',
+    'users',
 ]
 
 MIDDLEWARE = [

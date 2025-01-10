@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Page</title>
+</head>
+<body>
+    <form method = POST>
+        {% csrf_token %}
+        <p>Are you sure you want to delete the task?? {{product.name}}</p>
+        <label for name="delete">delete it</label>
+        <button type="submit" >delete</button>
+
+    </form>
+
+ 
+       
+
+</body>
+</html>

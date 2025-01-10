@@ -5,10 +5,14 @@
 </head>
 <body>
     <h1>Product List</h1>
+    <a href="{% url 'productscreate' %}" >agregar nuevo producto</a>
+
     <ul>
         {% for product in products %}
             <li>
-                <a href="{% url 'productsdetail'  product.id%}">{{ product.image }}-{{ product.name }} - {{ product.price }}</a>
+                <a href="{% url 'productsdetail'  product.id %}">{{ product.name }}- {{ product.price }}- {{product.description}}</a>
+                <a href="{% url 'productsupdate' product.id %}">update</a>
+                <a href="{% url 'productsdelete' product.id %}">delete</a>
             </li>
         {% empty %}
             <li>No products available.</li>

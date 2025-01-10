@@ -1,4 +1,4 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect ,get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import View
 from .models import Product
@@ -10,6 +10,12 @@ class ProductList(View):
         products = Product.objects.all()
         context = {'products' : products}
         return render(request, 'expenses.html',context)
+    
+class ProductUpdate(View):
+    def get(self, request,pk, *args, **kwargs):
+        product = Product.objects.get(pk=pk)
+        context = {'product' : product}
+        return render(request, 'expensesupdate.html',context)
     
     
      
@@ -23,10 +29,45 @@ class ProductCreateView(View):
         type = request.POST.get('type')
         price = request.POST.get('price')
         quantity = request.POST.get('quantity')
+        description = request.POST.get('description')
 
-        Product.objects.create(name = name,image = image,type = type,price = price,quantity = quantity)
+        Product.objects.create(name = name,image = image,type = type,price = price,quantity = quantity,description = description)
         
         return redirect('productslist') 
+    
+class ProductUpdateView(View):
+    def get (self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        product = Product.objects.get(pk=pk)
+        context = {'product':product}
+        return render(request,'expensesform.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        product = Product.objects.get(pk=pk)
+        product.name = request.POST.get('name')
+        product.image= request.POST.get('image')
+        product.type = request.POST.get('type')
+        product.price = request.POST.get('price')
+        product.quantity = request.POST.get('quantity')
+        product.description = request.POST.get('description')
+        product.save()
+        
+        return redirect('productslist')    
+
+class ProductDeleteView(View):
+    def get (self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        product = Product.objects.get(pk=pk)
+        context = {'product':product}
+        return render(request,'expenses_confirmdelete.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        product = Product.objects.get(pk=pk)
+        product.delete()
+        
+        return redirect('productslist')      
         
 
 class ProductDetailView(View):
