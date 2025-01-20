@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from expenses.views import *
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.http import HttpResponse
@@ -19,7 +19,7 @@ def signup(request):
                 user = User.objects.create_user(
                     username=request.POST['username'], password=request.POST['password1'])
                 user.save()
-                login(request ,user)
+                login(request, user)
                 return redirect('productslist')
             except IntegrityError:
                 return render(request, 'signup.html', {
@@ -31,3 +31,26 @@ def signup(request):
             'form': UserCreationForm,
             "error": 'password do not match'
         })
+
+
+def signout(request):
+    logout(request)
+    return redirect('productslist')
+
+
+def signin(request):
+    if request.method == 'GET':
+        context = {'form': AuthenticationForm}
+        return render(request, 'signin.html', context)
+    else:
+        user = authenticate(
+            request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request, 'signin.html', {
+                'form': AuthenticationForm,
+                "error": 'username or password is incorrect'
+            })
+        else:
+            print(request.POST.get('password'))
+            login(request, user)
+            return redirect('productslist')
