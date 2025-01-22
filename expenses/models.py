@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class TimeStampedModel(models.Model):
     """
@@ -18,7 +19,7 @@ class Product(TimeStampedModel):
         ('Other', 'Other'),
     ]
     name =  models.CharField(max_length=255)
-    image =  models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100)
+    image =  models.ImageField(upload_to='products/', null=True, blank=True)
     type = models.CharField(
         max_length=20,
         choices=TYPE_CHOICES, 
@@ -26,10 +27,11 @@ class Product(TimeStampedModel):
     )
     price  = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         if self.name:
-            return f" name of the product  : {self.name} //   type : {self.type}"
+            return f" name of the product  : {self.name} //   user : {self.user}"
         else:
             return f"name not found but type is: - ${self.type}"
    

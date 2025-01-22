@@ -31,8 +31,8 @@ class ProductCreateView(LoginRequiredMixin,View):
         price = request.POST.get('price')
         quantity = request.POST.get('quantity')
         description = request.POST.get('description')
-
-        Product.objects.create(name = name,image = image,type = type,price = price,quantity = quantity,description = description)
+        user = request.user
+        Product.objects.create(name = name,image = image,type = type,price = price,quantity = quantity,description = description, user=user)
         
         return redirect('productslist') 
     
@@ -52,6 +52,7 @@ class ProductUpdateView(LoginRequiredMixin,View):
         product.price = request.POST.get('price')
         product.quantity = request.POST.get('quantity')
         product.description = request.POST.get('description')
+        product.user = request.user
         product.save()
         
         return redirect('productslist')    
