@@ -1,17 +1,18 @@
 from django.shortcuts import render ,redirect ,get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from .models import Product
 
 
 
-class ProductList(View):
+class ProductList(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         products = Product.objects.all()
         context = {'products' : products}
         return render(request, 'expenses.html',context)
     
-class ProductUpdate(View):
+class ProductUpdate(LoginRequiredMixin,View):
     def get(self, request,pk, *args, **kwargs):
         product = Product.objects.get(pk=pk)
         context = {'product' : product}
@@ -19,7 +20,7 @@ class ProductUpdate(View):
     
     
      
-class ProductCreateView(View):
+class ProductCreateView(LoginRequiredMixin,View):
     def get (self, request, *args, **kwargs):
         return render(request,'expensesform.html')
     
@@ -35,7 +36,7 @@ class ProductCreateView(View):
         
         return redirect('productslist') 
     
-class ProductUpdateView(View):
+class ProductUpdateView(LoginRequiredMixin,View):
     def get (self, request, *args, **kwargs):
         pk = kwargs.get('pk')
         product = Product.objects.get(pk=pk)
@@ -55,7 +56,7 @@ class ProductUpdateView(View):
         
         return redirect('productslist')    
 
-class ProductDeleteView(View):
+class ProductDeleteView(LoginRequiredMixin,View):
     def get (self, request, *args, **kwargs):
         pk = kwargs.get('pk')
         product = Product.objects.get(pk=pk)
@@ -70,7 +71,7 @@ class ProductDeleteView(View):
         return redirect('productslist')      
         
 
-class ProductDetailView(View):
+class ProductDetailView(LoginRequiredMixin,View):
     def get (self,request,pk, *args, **kwargs):
         product = Product.objects.get(pk=pk)
         context = {'product':product}
