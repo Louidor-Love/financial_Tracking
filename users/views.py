@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.http import HttpResponse
+from .models import Perfil
 
 # Create your views here.
 
@@ -20,6 +21,9 @@ def signup(request):
                     username=request.POST['username'], password=request.POST['password1'])
                 user.save()
                 login(request, user)
+                if 'foto' in request.FILES:
+                    perfil = Perfil.objects.create(user = user,foto = request.FILES.get('foto'))
+
                 return redirect('productslist')
             except IntegrityError:
                 return render(request, 'signup.html', {
