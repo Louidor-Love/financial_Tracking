@@ -8,7 +8,7 @@
     <a href="{% url 'productslist' %}">go back</a>
     
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="{{ product.name }}" required><br>

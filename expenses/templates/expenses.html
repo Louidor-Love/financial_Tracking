@@ -14,11 +14,9 @@
         {% for product in products %}
             <li>
                 <a href="{% url 'productsdetail' product.id %}">
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded pill" style="width: 100px; height: auto;">
-                    {% else %}
-                        <img src="/path/to/default/image.jpg" alt="Default Image" style="width: 50px; height: auto;">
-                    {% endif %}
+                
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded pill" style="width: 100px; height: auto;">
+                    
                     {{ product.user.username }} - {{ product.name }} - {{ product.price }} - {{ product.description }}
                 </a>
                 <a href="{% url 'productsupdate' product.id %}">update</a>

@@ -26,7 +26,7 @@ class ProductCreateView(LoginRequiredMixin,View):
     
     def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
-        image= request.POST.get('image')
+        image = request.FILES.get('image')
         type = request.POST.get('type')
         price = request.POST.get('price')
         quantity = request.POST.get('quantity')
@@ -47,13 +47,15 @@ class ProductUpdateView(LoginRequiredMixin,View):
         pk = kwargs.get('pk')
         product = Product.objects.get(pk=pk)
         product.name = request.POST.get('name')
-        product.image= request.POST.get('image')
+        if 'image' in request.FILES:
+            product.image = request.FILES['image']
         product.type = request.POST.get('type')
         product.price = request.POST.get('price')
         product.quantity = request.POST.get('quantity')
         product.description = request.POST.get('description')
         product.user = request.user
         product.save()
+        print(request.FILES['image'])
         
         return redirect('productslist')    
 
