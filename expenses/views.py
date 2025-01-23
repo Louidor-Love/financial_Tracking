@@ -3,13 +3,15 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from .models import Product
+from users.models import Perfil
 
 
 
 class ProductList(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         products = Product.objects.all()
-        context = {'products' : products}
+        perfil = Perfil.objects.get(user=request.user)
+        context = {'products' : products , 'perfil':perfil}
         return render(request, 'expenses.html',context)
     
 class ProductUpdate(LoginRequiredMixin,View):

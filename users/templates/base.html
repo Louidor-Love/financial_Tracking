@@ -34,12 +34,13 @@
               </li>
               {% endif %}
               <li class="nav-item dropdown">
-                {% if perfil in perfil %}
-                <img src="{{ perfil.foto.url }}" alt="{{ perfil.user.username }}" class="rounded pill" style="width: 50px; height: auto;">
+                {% if perfil.foto %}
+                    <img src="{{ perfil.foto.url }}" alt="{{ perfil.user.username }}" class="rounded pill" style="width: 50px; height: auto;">
                 {% else %}
-                <p>No tienes foto de perfil.</p>
+                    <p>No tienes foto de perfil.</p>
                 {% endif %}
               </li>
+            
             </ul>
           </div>
         </div>

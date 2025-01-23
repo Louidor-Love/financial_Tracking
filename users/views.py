@@ -22,7 +22,8 @@ def signup(request):
                 user.save()
                 login(request, user)
                 if 'foto' in request.FILES:
-                    perfil = Perfil.objects.create(user = user,foto = request.FILES.get('foto'))
+                    perfil = Perfil.objects.create(
+                        user=user, foto=request.FILES.get('foto'))
 
                 return redirect('productslist')
             except IntegrityError:
@@ -58,3 +59,4 @@ def signin(request):
             print(request.POST.get('password'))
             login(request, user)
             return redirect('productslist')
+
