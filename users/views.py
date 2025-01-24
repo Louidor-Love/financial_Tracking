@@ -9,7 +9,7 @@ from .models import Perfil
 
 # Create your views here.
 
-
+# vista de signup
 def signup(request):
     if request.method == 'GET':
         context = {'form': UserCreationForm}
@@ -37,12 +37,12 @@ def signup(request):
             "error": 'password do not match'
         })
 
-
+# vista de signout
 def signout(request):
     logout(request)
     return redirect('productslist')
 
-
+# vista de signin
 def signin(request):
     if request.method == 'GET':
         context = {'form': AuthenticationForm}
