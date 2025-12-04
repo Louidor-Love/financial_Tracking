@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    # Backend SQL Server
+    'sql_server.pyodbc',
     'dashboard',
     'expenses',
     'users',
@@ -92,15 +94,20 @@ host = os.getenv("HOST")
 port = os.getenv("PORT")
 
 
-
+# Put your database in Engine
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': name,           # Usar la variable de entorno para el nombre de la base de datos
-        'USER': user,           # Usar la variable de entorno para el usuario
-        'PASSWORD': password,   # Usar la variable de entorno para la contraseña
-        'HOST': host,           # Usar la variable de entorno para el host
-        'PORT': port,      # Cambia el puerto si es necesario
+        'ENGINE': 'mssql',       # for sql server
+        'NAME': name,            # Use the environment variable for the database name
+        #'USER': user,           # Use the environment variable for the  username
+        #'PASSWORD': password,   # Use the environment variable for the password
+        'HOST': host,            # Use the environment variable for the host
+        'PORT': port,            # Change the port if necesary
+        'OPTIONS':  {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            # if you use Windows Authentication
+            'trusted_connection': 'yes',   
+        }
     }
 }
 
