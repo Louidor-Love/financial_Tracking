@@ -8,6 +8,7 @@ urlpatterns = [
     path('financial_admin/', admin.site.urls),
     path('', include('expenses.urls')),
     path('', include('users.urls')),
+    path('', include('dashboard.urls')),
 ]
 
 if settings.DEBUG:

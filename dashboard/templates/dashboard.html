@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+
+    <ul>
+        {% for product in products %}
+            <li>
+                <a href="{% url 'productsdetail' product.id %}">
+                
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded pill" style="width: 100px; height: auto;">
+                    
+                    {{ product.user.username }} - {{ product.name }} - {{ product.price }} - {{ product.description }}
+                </a>
+                <a href="{% url 'productsupdate' product.id %}">update</a>
+                <a href="{% url 'productsdelete' product.id %}">delete</a>
+            </li>
+        {% empty %}
+            <li>No products available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}
