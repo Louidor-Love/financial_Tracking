@@ -1,6 +1,8 @@
 # Entornos virtuales
 venv
 venv/
+node_modules/
+node_modules
 financial_database.env
 financial_database.env/
 db.sqlite3
