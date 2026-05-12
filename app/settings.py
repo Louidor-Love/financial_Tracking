@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
     # Backend SQL Server
     'sql_server.pyodbc',
+    #DRF
+    'rest_framework',
     'dashboard',
     'expenses',
     'users',

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from expenses.views import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.http import HttpResponse
@@ -57,6 +58,13 @@ def signin(request):
             })
         else:
             print(request.POST.get('password'))
+            # crea sesion normal
             login(request, user)
-            return redirect('productslist')
+            #crear token
+            refresh = RefreshToken.for_user(user)
+            #convierte el token a string para reutilizar
+            access_token = str(refresh.access_token)
+            response = redirect('productslist')
+            response.set_cookie(key='access_token', value=access_token )
+            return response 
 
