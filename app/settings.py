@@ -43,9 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     # Backend SQL Server
-    'sql_server.pyodbc',
+    #'sql_server.pyodbc',
+
     #DRF
     'rest_framework',
+
+    # JWT Authentication
+    'rest_framework_simplejwt',
     'dashboard',
     'expenses',
     'users',
@@ -101,16 +105,14 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Put your database in Engine
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',       # for sql server
+        'ENGINE': 'django.db.backends.mysql',       # for mysql
         'NAME': name,            # Use the environment variable for the database name
-        #'USER': user,           # Use the environment variable for the  username
-        #'PASSWORD': password,   # Use the environment variable for the password
+        'USER': user,           # Use the environment variable for the  username
+        'PASSWORD': password,   # Use the environment variable for the password
         'HOST': host,            # Use the environment variable for the host
         'PORT': port,            # Change the port if necesary
         'OPTIONS':  {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            # if you use Windows Authentication
-            'trusted_connection': 'yes',   
+            'charset': 'utf8mb4', 
         }
     }
 }
@@ -165,3 +167,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+'rest_framework_simplejwt'

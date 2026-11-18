@@ -7,3 +7,26 @@ financial_database.env
 financial_database.env/
 db.sqlite3
 mysql.cnf
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entorno virtual
+.venv/
+venv/
+
+# Variables de entorno y secretos
+.env
+*.env
+
+# Archivos temporales
+*.log
+
+# Archivos del sistema
+.DS_Store
+
+# Archivos subidos por usuarios
+media/

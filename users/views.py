@@ -20,11 +20,9 @@ def signup(request):
             try:
                 user = User.objects.create_user(
                     username=request.POST['username'], password=request.POST['password1'])
-                user.save()
+              
+                perfil = Perfil.objects.create(user=user, foto=request.FILES.get('foto'))
                 login(request, user)
-                if 'foto' in request.FILES:
-                    perfil = Perfil.objects.create(
-                        user=user, foto=request.FILES.get('foto'))
 
                 return redirect('productslist')
             except IntegrityError:
